@@ -1,11 +1,11 @@
 import { getRepository } from 'typeorm';
-import User from '../models/User';
-import authConfig from '../config/auth';
+import User from '../infra/typeorm/entities/User';
+import authConfig from '../../../config/auth';
 
 import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken';
 
-import AppError from '../errors/AppError';
+import AppError from '@shared/errors/AppError';
 
 
 interface Request {
@@ -47,14 +47,7 @@ class AuthenticateUserService {
             user,
             token
         };
-
-
-
-
     }
-
-
-
 }
 
 export default AuthenticateUserService;
