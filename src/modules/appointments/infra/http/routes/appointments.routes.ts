@@ -7,7 +7,6 @@ import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthentica
 import { parseISO } from 'date-fns';
 
 const appointmentsRouter = Router();
-const appointmentsRepository = new AppointmentsRepository();
 
 appointmentsRouter.use(ensureAuthenticated);
 
@@ -19,11 +18,12 @@ appointmentsRouter.use(ensureAuthenticated);
 
 
 appointmentsRouter.post('/', async (request, response) => {
+    const appointmentsRepository = new AppointmentsRepository();
     const { provider_id, date } = request.body;
 
     const parsedDate = parseISO(date)
 
-    const createAppointmentService = new CreateAppointmentService(appointmentsRepository); 
+    const createAppointmentService = new CreateAppointmentService(appointmentsRepository);
 
     const appointment = await createAppointmentService.execute({
         provider_id,
